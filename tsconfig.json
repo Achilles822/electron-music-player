@@ -22,6 +22,20 @@
     "resolveJsonModule": true,
     "allowJs": true
   },
+  "include": [
+    "mock/**/*",
+    "src/**/*",
+    "tests/**/*",
+    "test/**/*",
+    "__test__/**/*",
+    "typings/**/*",
+    "config/**/*",
+    ".eslintrc.js",
+    ".stylelintrc.js",
+    ".prettierrc.js",
+    "jest.config.js",
+    "mock/*"
+  ],
   "exclude": [
     "test",
     "release",
