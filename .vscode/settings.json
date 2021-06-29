@@ -25,7 +25,10 @@
     "yarn.lock": true,
     "*.{css,sass,scss}.d.ts": true
   },
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "editor.defaultFormatter": "SimonSiefke.prettier-vscode",
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

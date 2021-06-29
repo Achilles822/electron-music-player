@@ -8,28 +8,7 @@ import BottomBar from '../BottomBar/BottomBar';
 import styles from './Layout.scss';
 
 const Layout = () => {
-  const parseFile = async (file: any) => {
-    console.log(`Parsing file "${file.name}" of type ${file.type}`);
-
-    return musicMetadata
-      .parseBlob(file, { native: true })
-      .then((metadata: any) => {
-        console.log(`Completed parsing of ${file.name}:`, metadata);
-        return metadata;
-      });
-  };
-
-  const onFileChange = (e: any) => {
-    console.log(e.target.files);
-    const path = e.target.files[0].path as any;
-    parseFile(e.target.files[0]);
-    const sound = new Howl({
-      src: [path],
-      html5: true,
-    });
-    sound.play();
-  };
-
+  
   return (
     <div className={styles.windowContainer}>
       <div className={styles.top}>
@@ -39,7 +18,7 @@ const Layout = () => {
       <div className={styles.bottom}>
         <BottomBar />
       </div>
-      {/* <input type="file" onChange={onFileChange} id="file" /> */}
+
     </div>
   );
 };
