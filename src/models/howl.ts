@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { createModel } from 'hox';
 
 function useHowler() {
-  const [playingSrc, setPlayingSrc] = useState('baidu.com');
+  const [playingSrc, setPlayingSrc] = useState<string[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [playingIndex, setPlayingIndex] = useState(0);
   const [metaData, setMetaData] = useState({});
   return {
     playingSrc,
@@ -12,6 +13,8 @@ function useHowler() {
     setIsPlaying,
     metaData,
     setMetaData,
+    playingIndex,
+    setPlayingIndex,
   };
 }
 export default createModel(useHowler);

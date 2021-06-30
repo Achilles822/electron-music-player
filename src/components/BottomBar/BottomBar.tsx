@@ -5,15 +5,17 @@ import PlayControl from '../PlayControl/PlayControl';
 import useHowlerModel from '../../models/howl';
 
 const BottomBar = () => {
-  const { playingSrc, isPlaying } = useHowlerModel();
+  const { playingSrc, isPlaying, playingIndex } = useHowlerModel();
   return (
     <div className={styles.barContainer}>
       <PlayControl isPlaying={isPlaying} />
-      <ReactHowler
-        // src="http://goldfirestudios.com/proj/howlerjs/sound.ogg"
-        src={playingSrc}
-        playing={isPlaying}
-      />
+      {playingSrc.length ? (
+        <ReactHowler
+          // src="http://goldfirestudios.com/proj/howlerjs/sound.ogg"
+          src={playingSrc[playingIndex]}
+          playing={isPlaying}
+        />
+      ) : null}
     </div>
   );
 };
