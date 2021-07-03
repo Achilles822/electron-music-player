@@ -6,6 +6,8 @@ function useHowler() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [playingIndex, setPlayingIndex] = useState(0);
   const [metaData, setMetaData] = useState({});
+  const [playingList, setPlayingList] = useState<any>([]);
+  const [volume, setVolume] = useState(0);
   return {
     playingSrc,
     setPlayingSrc,
@@ -15,6 +17,10 @@ function useHowler() {
     setMetaData,
     playingIndex,
     setPlayingIndex,
+    playingList,
+    setPlayingList,
+    volume,
+    setVolume,
   };
 }
 export default createModel(useHowler);
