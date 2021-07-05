@@ -4,6 +4,8 @@
 }
 .top {
   display: flex;
+  height: calc(100vh - 80px);
+  overflow-y: scroll;
 }
 .bottom {
 }

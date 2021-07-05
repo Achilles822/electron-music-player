@@ -1,20 +1,16 @@
 import React from 'react';
 import ReactHowler from 'react-howler';
 import styles from './BottomBar.scss';
+import PlayInfo from '../PlayInfo/PlayInfo';
 import PlayControl from '../PlayControl/PlayControl';
 import Volume from '../Volume/Volume';
 import useHowlerModel from '../../models/howl';
 
 const BottomBar = () => {
-  const {
-    playingSrc,
-    isPlaying,
-    playingIndex,
-    playingList,
-    volume,
-  } = useHowlerModel();
+  const { isPlaying, playingIndex, playingList, volume } = useHowlerModel();
   return (
     <div className={styles.barContainer}>
+      <PlayInfo />
       <PlayControl isPlaying={isPlaying} />
       {playingList.length ? (
         <ReactHowler

@@ -1,6 +1,12 @@
 import React from 'react';
-import useHowlerModel from '../../models/howl';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import PauseIcon from '@material-ui/icons/Pause';
 import Icon from '../Icon/Icon';
+import useHowlerModel from '../../models/howl';
 import styles from './PlayControl.scss';
 
 const PlayControl = (props: any) => {
@@ -28,21 +34,24 @@ const PlayControl = (props: any) => {
   };
   return (
     <div className={styles.container}>
-      <Icon
+      <IconButton aria-label="previous" onClick={handlePrevious}>
+        <SkipPreviousIcon />
+      </IconButton>
+      <IconButton aria-label="play/pause" onClick={handlePlay}>
+        {isPlaying ? (
+          <PauseIcon sx={{ height: 38, width: 38 }} />
+        ) : (
+          <PlayArrowIcon sx={{ height: 38, width: 38 }} />
+        )}
+      </IconButton>
+      <IconButton aria-label="next" onClick={handleNext}>
+        <SkipNextIcon />
+      </IconButton>
+      {/* <Icon
         className={styles.icon}
         icon="#icon-ArrowPrevious"
         onClick={handlePrevious}
-      />
-      <Icon
-        className={styles['icon-play']}
-        icon={isPlaying ? '#icon-Pause-1' : '#icon-Play'}
-        onClick={handlePlay}
-      />
-      <Icon
-        className={styles.icon}
-        icon="#icon-ArrowNext"
-        onClick={handleNext}
-      />
+      /> */}
     </div>
   );
 };

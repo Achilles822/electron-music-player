@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
+import PlayList from '../PlayList/PlayList';
 import useHowlerModel from '../../models/howl';
-import { getFileMedadata } from '../../utils/file';
+import { getFileMedadata, convertBufferToBase64 } from '../../utils/file';
+import styles from './Main.scss';
 
 const Main = () => {
   const { setIsPlaying, setPlayingList } = useHowlerModel();
@@ -10,7 +12,14 @@ const Main = () => {
     await Promise.all(
       [...files].map(async (file: File) => {
         const info = await getFileMedadata(file);
-        fileList.push({ ...info, src: file.path });
+        const { picture } = info.common;
+        let coverBase64;
+        if (picture && picture.length) {
+          coverBase64 = convertBufferToBase64(info.common.picture[0]);
+        } else {
+          coverBase64 = '';
+        }
+        fileList.push({ ...info, src: file.path, coverBase64 });
       })
     );
     console.log(fileList);
@@ -18,9 +27,12 @@ const Main = () => {
     setIsPlaying(true);
   };
   return (
-    <h1>
-      <input type="file" onChange={onFileChange} multiple />
-    </h1>
+    <div className={styles['main-container']}>
+      <h1>
+        <input type="file" onChange={onFileChange} multiple />
+      </h1>
+      <PlayList />
+    </div>
   );
 };
 

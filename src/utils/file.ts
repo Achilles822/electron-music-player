@@ -6,3 +6,14 @@ export const getFileMedadata = (file: File): any => {
     return metadata;
   });
 };
+
+export const convertBufferToBase64 = (imageBuffer: any): string => {
+  const bytes = new Uint8Array(imageBuffer.data);
+  let data = '';
+  const len = bytes.byteLength;
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < len; i++) {
+    data += String.fromCharCode(bytes[i]);
+  }
+  return `data:image/png;base64,${window.btoa(data)}`;
+};
