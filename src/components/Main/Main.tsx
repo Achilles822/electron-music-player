@@ -5,7 +5,7 @@ import { getFileMedadata, convertBufferToBase64 } from '../../utils/file';
 import styles from './Main.scss';
 
 const Main = () => {
-  const { setIsPlaying, setPlayingList } = useHowlerModel();
+  const { setIsPlaying, setPlayingList, setSeek } = useHowlerModel();
   const onFileChange = async (e: any) => {
     const { files } = e.target;
     const fileList: any = [];
@@ -23,7 +23,8 @@ const Main = () => {
       })
     );
     console.log(fileList);
-    setPlayingList(fileList);
+    setPlayingList((oldList: any) => [...oldList, ...fileList]);
+    setSeek(0);
     setIsPlaying(true);
   };
   return (
