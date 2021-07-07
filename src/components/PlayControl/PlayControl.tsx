@@ -13,12 +13,13 @@ const PlayControl = (props: any) => {
   const {
     isPlaying,
     setIsPlaying,
-    playingList,
+    songList,
+    listIndex,
     playingIndex,
     setPlayingIndex,
   } = useHowlerModel();
 
-  const len = playingList.length;
+  // const len = songList[listIndex].list.length;
   const handlePlay = () => {
     setIsPlaying(!isPlaying);
   };
@@ -28,7 +29,7 @@ const PlayControl = (props: any) => {
     setPlayingIndex(newIndex);
   };
   const handleNext = () => {
-    if (playingIndex >= len - 1) return;
+    if (playingIndex >= songList[listIndex].list.length - 1) return;
     const newIndex = playingIndex + 1;
     setPlayingIndex(newIndex);
   };

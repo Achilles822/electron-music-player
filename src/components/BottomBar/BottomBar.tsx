@@ -12,13 +12,16 @@ const BottomBar = () => {
     isPlaying,
     playingIndex,
     setPlayingIndex,
-    playingList,
+    // playingList,
+    songList,
     volume,
     seek,
     setSeek,
+    setPosition,
+    setIsPlaying,
+    listIndex,
   } = useHowlerModel();
   const playerRef = useRef();
-  // const [loaded, setLoaded] = useState<boolean>(false);
   useEffect(() => {
     if (seek > 0) {
       (playerRef as any).current.seek(seek);
@@ -28,29 +31,25 @@ const BottomBar = () => {
   useEffect(() => {
     setSeek(0);
   }, [playingIndex]);
-
-  // const handleOnLoad = () => {
-  //   console.log('loaded');
-  //   setLoaded(true);
-  // };
   const handleEnd = () => {
-    console.log('end');
-    if (playingIndex < playingList.length - 1) {
+    setPosition(0);
+    if (playingIndex < songList[listIndex].list.length - 1) {
       setPlayingIndex(playingIndex + 1);
+      return;
     }
+    setIsPlaying(false);
   };
   return (
     <div className={styles.barContainer}>
       <TimeIndicator />
       <PlayInfo />
       <PlayControl isPlaying={isPlaying} />
-      {playingList.length ? (
+      {songList.length > 0 && songList[listIndex].list.length ? (
         <ReactHowler
           // src="http://goldfirestudios.com/proj/howlerjs/sound.ogg"
-          src={playingList[playingIndex].src}
+          src={songList[listIndex].list[playingIndex].src}
           playing={isPlaying}
           volume={volume / 100}
-          // onLoad={handleOnLoad}
           onEnd={handleEnd}
           ref={playerRef}
         />

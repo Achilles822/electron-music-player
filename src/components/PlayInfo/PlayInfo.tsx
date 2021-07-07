@@ -9,21 +9,21 @@ import styles from './PlayInfo.scss';
 import useHowlerModel from '../../models/howl';
 
 const PlayInfo = (props: any) => {
-  const { playingList, playingIndex, isPlaying } = useHowlerModel();
+  const { songList, playingIndex, isPlaying, listIndex } = useHowlerModel();
   return (
     <div className={styles['info-container']}>
-      {playingList.length > 0 ? (
+      {songList.length > 0 && songList[listIndex].list.length > 0 ? (
         <div className={styles['info-wrapper']}>
           <Avatar
-            src={playingList[playingIndex].coverBase64}
+            src={songList[listIndex].list[playingIndex].coverBase64}
             className={isPlaying ? styles.rotate : ''}
           />
           <div className={styles['text-block']}>
             <span className={styles.title}>
-              {playingList[playingIndex].common.title}
+              {songList[listIndex].list[playingIndex].common.title}
             </span>
             <span className={styles.artist}>
-              {playingList[playingIndex].common.artist}
+              {songList[listIndex].list[playingIndex].common.artist}
             </span>
           </div>
         </div>

@@ -7,8 +7,16 @@ import styles from './TimeIndicator.scss';
 let intervalTimer = 0;
 const TimeIndicator = () => {
   const theme = useTheme();
-  const { playingList, playingIndex, isPlaying, setSeek } = useHowlerModel();
-  const [position, setPosition] = React.useState(0);
+  const {
+    songList,
+    listIndex,
+    playingIndex,
+    isPlaying,
+    setSeek,
+    setPosition,
+    position,
+  } = useHowlerModel();
+  // const [position, setPosition] = React.useState(0);
   const [duration, setDuration] = useState(0);
   function formatDuration(value) {
     const minute = Math.floor(value / 60);
@@ -27,10 +35,10 @@ const TimeIndicator = () => {
     };
   }, [isPlaying]);
   useEffect(() => {
-    if (playingList.length > 0) {
-      setDuration(playingList[playingIndex].format.duration);
+    if (songList.length > 0 && songList[listIndex].list.length > 0) {
+      setDuration(songList[listIndex].list[playingIndex].format.duration);
     }
-  }, [playingIndex, playingList]);
+  }, [playingIndex]);
 
   useEffect(() => {
     setPosition(0);

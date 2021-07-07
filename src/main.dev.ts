@@ -14,6 +14,7 @@ import path from 'path';
 import { app, BrowserWindow, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import Store from 'electron-store';
 import MenuBuilder from './menu';
 
 export default class AppUpdater {
@@ -37,6 +38,9 @@ if (
 ) {
   require('electron-debug')();
 }
+
+const store = new Store();
+console.log(store);
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
