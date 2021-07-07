@@ -43,6 +43,7 @@ const TimeIndicator = () => {
   useEffect(() => {
     setPosition(0);
   }, [playingIndex]);
+
   const onDragSlider = (_: any, value: number) => {
     setPosition(value);
     setSeek(value);
