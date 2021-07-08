@@ -1,37 +1,60 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
 import styles from './Sidebar.scss';
 import useHowlerModel from '../../models/howl';
+import { getFileMedadata, convertBufferToBase64 } from '../../utils/file';
 
 type Iprops = {
   onDialog: () => void;
 };
 const Sidebar = (props: Iprops) => {
   const { onDialog } = props;
+  const fileRef = useRef<HTMLInputElement>();
   const {
     songList,
-    listIndex,
     setViewListIndex,
     viewListIndex,
+    setSongList,
+    setSeek,
   } = useHowlerModel();
   const handleClickAdd = () => {
     onDialog();
   };
   const handleClickItem = (index: number) => {
     setViewListIndex(index);
+  };
+  const handleClickAddSong = () => {
+    fileRef.current.click();
+  };
+  const onFileChange = async (e: any) => {
+    const { files } = e.target;
+    const fileList: any = [];
+    await Promise.all(
+      [...files].map(async (file: File) => {
+        const info = await getFileMedadata(file);
+        const { picture } = info.common;
+        let coverBase64;
+        if (picture && picture.length) {
+          coverBase64 = convertBufferToBase64(info.common.picture[0]);
+        } else {
+          coverBase64 = '';
+        }
+        fileList.push({ ...info, src: file.path, coverBase64 });
+      })
+    );
+    const newList = [...songList];
+    newList[viewListIndex].list = [
+      ...songList[viewListIndex].list,
+      ...fileList,
+    ];
+    setSongList(newList);
+    setSeek(0);
+    // setIsPlaying(true);
   };
   useEffect(() => {
     console.log(songList);
@@ -41,10 +64,24 @@ const Sidebar = (props: Iprops) => {
       <Button
         variant="text"
         className={styles['btn-add']}
+        onClick={handleClickAddSong}
+      >
+        添加歌曲
+      </Button>
+      <Button
+        variant="text"
+        className={styles['btn-add']}
         onClick={handleClickAdd}
       >
         新增列表
       </Button>
+      <input
+        type="file"
+        onChange={onFileChange}
+        multiple
+        ref={fileRef}
+        style={{ display: 'none' }}
+      />
       <List dense>
         {songList.map((list, index) => {
           return (

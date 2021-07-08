@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
+import { useDebounceFn } from 'ahooks';
 import useHowlerModel from '../../models/howl';
 import styles from './TimeIndicator.scss';
 
@@ -16,9 +17,8 @@ const TimeIndicator = () => {
     setPosition,
     position,
   } = useHowlerModel();
-  // const [position, setPosition] = React.useState(0);
   const [duration, setDuration] = useState(0);
-  function formatDuration(value) {
+  function formatDuration(value: number) {
     const minute = Math.floor(value / 60);
     // eslint-disable-next-line radix
     const secondLeft = parseInt(value - minute * 60);
@@ -44,10 +44,15 @@ const TimeIndicator = () => {
     setPosition(0);
   }, [playingIndex]);
 
-  const onDragSlider = (_: any, value: number) => {
-    setPosition(value);
-    setSeek(value);
-  };
+  const { run } = useDebounceFn(
+    (_: any, value: number) => {
+      setPosition(value);
+      setSeek(value);
+    },
+    {
+      wait: 200,
+    }
+  );
   return (
     <div className={styles.container}>
       <div>
@@ -58,7 +63,7 @@ const TimeIndicator = () => {
           min={0}
           step={1}
           max={duration}
-          onChange={(_, value: any) => onDragSlider(_, value)}
+          onChange={(_, value: any) => run(_, value)}
           sx={{
             color: theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',
             height: 4,
