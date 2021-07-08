@@ -12,26 +12,26 @@ function useHowler() {
   const [volume, setVolume] = useState(30);
   const [seek, setSeek] = useState(0);
   const [position, setPosition] = useState(0);
-  const [songList, setSongList] = useState<ISongList[]>(
-    (store.get('songList') as ISongList[]) || []
-  );
+  const [songList, setSongList] = useState<ISongList[]>([]);
   const [listIndex, setListIndex] = useState(0);
   const [viewListIndex, setViewListIndex] = useState(0);
-  // store.set('songList', []);
   // useEffect(() => {
   //   console.log('set list');
   //   store.set('playingList', playingList);
   // }, [playingList]);
+
   useEffect(() => {
-    console.log('set songList');
-    console.log(songList);
-    if (songList.length === 0) {
+    const storeList = store.get('songList') as ISongList[];
+    setSongList(storeList);
+  }, []);
+
+  useEffect(() => {
+    const storeList = store.get('songList') as ISongList[];
+    if (songList.length === 0 && storeList.length === 0) {
       setSongList((old) => [...old, { title: '默认列表', list: [] }]);
       setListIndex(0);
-    } else {
-      store.set('songList', songList);
     }
-    // store.set('songList', songList);
+    store.set('songList', songList);
   }, [songList]);
   useEffect(() => {
     console.log('set listIndex');
