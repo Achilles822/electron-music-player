@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createModel } from 'hox';
+import Wave from '@foobar404/wave';
 import { store } from '../store';
 import type { ISongList } from '../types/songlist';
 
@@ -15,6 +16,7 @@ function useHowler() {
   const [songList, setSongList] = useState<ISongList[]>([]);
   const [listIndex, setListIndex] = useState(0);
   const [viewListIndex, setViewListIndex] = useState(0);
+  const [wave] = useState(new Wave());
   // useEffect(() => {
   //   console.log('set list');
   //   store.set('playingList', playingList);
@@ -54,6 +56,7 @@ function useHowler() {
     setListIndex,
     setViewListIndex,
     viewListIndex,
+    wave,
   };
 }
 export default createModel(useHowler);
