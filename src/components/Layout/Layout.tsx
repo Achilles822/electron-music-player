@@ -15,6 +15,8 @@ import styles from './Layout.scss';
 
 const Layout = () => {
   const [open, setOpen] = useState(false);
+
+  const testRef = useRef(null);
   const {
     setSongList,
     songList,
@@ -26,7 +28,7 @@ const Layout = () => {
     setSeek,
     setIsPlaying,
     setPosition,
-    setPlayingIndex
+    setPlayingIndex,
   } = useHowlerModel();
   const [title, setTitle] = useState('');
 
@@ -82,7 +84,7 @@ const Layout = () => {
         </div>
       ) : (
         <div className={styles.top}>
-          <Cover />
+          <Cover testRef={playerRef} />
         </div>
       )}
 
