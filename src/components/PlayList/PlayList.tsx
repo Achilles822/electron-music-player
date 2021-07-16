@@ -6,6 +6,9 @@ import ListItemButton from '@material-ui/core/ListItemButton';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import IconButton from '@material-ui/core/IconButton';
+import ClearIcon from '@material-ui/icons/Clear';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
@@ -29,6 +32,9 @@ const PlayList = (props: any) => {
     setPlayingIndex(index);
     setIsPlaying(true);
   };
+  const handleDelete = (index: number) => {
+    console.log(index);
+  };
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <List>
@@ -39,9 +45,28 @@ const PlayList = (props: any) => {
                   alignItems="flex-start"
                   key={song.src}
                   className={playingIndex === index ? styles.active : ''}
-                  onClick={() => {
-                    handleClick(index);
-                  }}
+                  secondaryAction={
+                    <div>
+                      {' '}
+                      <IconButton
+                        edge="end"
+                        onClick={() => {
+                          handleClick(index);
+                        }}
+                      >
+                        {' '}
+                        <PlayArrowIcon />
+                      </IconButton>
+                      <IconButton
+                        edge="end"
+                        onClick={() => {
+                          handleDelete(index);
+                        }}
+                      >
+                        <ClearIcon />
+                      </IconButton>
+                    </div>
+                  }
                 >
                   <ListItemAvatar>
                     <Avatar
