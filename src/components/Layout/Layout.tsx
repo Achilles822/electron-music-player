@@ -6,17 +6,18 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ReactHowler from 'react-howler';
+import Slide from '@material-ui/core/Slide';
 import BottomBar from '../BottomBar/BottomBar';
 import Main from '../Main/Main';
 import Sidebar from '../Sidebar/Sidebar';
 import Cover from '../Cover/Cover';
 import useHowlerModel from '../../models/howl';
+import useGlobalModel from '../../models/global';
+import { IPage } from '../../types/global';
 import styles from './Layout.scss';
 
 const Layout = () => {
   const [open, setOpen] = useState(false);
-
-  const testRef = useRef(null);
   const {
     setSongList,
     songList,
@@ -30,7 +31,12 @@ const Layout = () => {
     setPosition,
     setPlayingIndex,
   } = useHowlerModel();
+
+  const { page, setPage } = useGlobalModel();
+
   const [title, setTitle] = useState('');
+
+  const [pageAnimation, setPageAnimation] = useState(true);
 
   const handleClose = () => {
     setOpen(false);
@@ -42,14 +48,18 @@ const Layout = () => {
   const onDialog = () => {
     setOpen(true);
   };
-  const [isShowCover, setIsShowCover] = useState(false);
 
   const playerRef = useRef();
+
   useEffect(() => {
     if (seek > 0) {
       (playerRef as any).current.seek(seek);
     }
   }, [seek]);
+
+  useEffect(() => {
+    setPageAnimation((prev) => !prev);
+  }, [page]);
 
   useEffect(() => {
     setSeek(0);
@@ -77,15 +87,18 @@ const Layout = () => {
           id="howler"
         />
       ) : null}
-      {isShowCover ? (
+
+      {page === IPage.列表 ? (
         <div className={styles.top}>
           <Sidebar onDialog={onDialog} />
           <Main />
         </div>
       ) : (
-        <div className={styles.top}>
-          <Cover testRef={playerRef} />
-        </div>
+        <Slide direction="up" in={pageAnimation} mountOnEnter unmountOnExit>
+          <div className={styles.top}>
+            <Cover />
+          </div>
+        </Slide>
       )}
 
       <div className={styles.bottom}>

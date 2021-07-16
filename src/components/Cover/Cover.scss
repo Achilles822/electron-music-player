@@ -1,0 +1,13 @@
+.cover-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.cover {
+  width: 250px;
+  height: 250px;
+  background-color: yellow;
+  border-radius: 50%;
+  position: absolute;
+}

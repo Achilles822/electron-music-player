@@ -7,9 +7,6 @@ import type { ISongList } from '../types/songlist';
 function useHowler() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [playingIndex, setPlayingIndex] = useState(0);
-  // const [playingList, setPlayingList] = useState(
-  //   store.get('playingList') || []
-  // );
   const [volume, setVolume] = useState(30);
   const [seek, setSeek] = useState(0);
   const [position, setPosition] = useState(0);
@@ -17,10 +14,6 @@ function useHowler() {
   const [listIndex, setListIndex] = useState(0);
   const [viewListIndex, setViewListIndex] = useState(0);
   const [wave] = useState(new Wave());
-  // useEffect(() => {
-  //   console.log('set list');
-  //   store.set('playingList', playingList);
-  // }, [playingList]);
 
   useEffect(() => {
     const storeList = store.get('songList') as ISongList[];
@@ -35,10 +28,12 @@ function useHowler() {
     }
     store.set('songList', songList);
   }, [songList]);
+
   useEffect(() => {
     console.log('set listIndex');
     store.set('listIndex', listIndex);
   }, [listIndex]);
+
   return {
     isPlaying,
     setIsPlaying,
