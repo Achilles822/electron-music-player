@@ -61,7 +61,7 @@ const TimeIndicator = () => {
           size="small"
           value={position}
           min={0}
-          step={1}
+          step={0.2}
           max={duration}
           onChange={(_, value: any) => run(_, value)}
           sx={{

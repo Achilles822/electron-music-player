@@ -12,6 +12,7 @@ const Cover = (props) => {
     listIndex,
     playingIndex,
     volume,
+    loaded,
   } = useHowlerModel();
 
   useEffect(() => {
@@ -20,6 +21,9 @@ const Cover = (props) => {
       colors: ['red', 'white', 'blue', '#22194D', '#yellow'],
     };
     wave.fromElement('audio', 'canvas', options);
+  }, [loaded]);
+
+  useEffect(() => {
     if (isPlaying) {
       (document.getElementById('audio') as HTMLAudioElement).play();
     } else if (songList.length > 0) {
@@ -29,8 +33,11 @@ const Cover = (props) => {
 
   useEffect(() => {
     if (songList.length > 0) {
-      (document.getElementById('audio') as HTMLAudioElement).volume =
-        volume / 100;
+      if (volume === 0) {
+        (document.getElementById('audio') as HTMLAudioElement).volume = 0;
+      } else {
+        (document.getElementById('audio') as HTMLAudioElement).volume = 0.01;
+      }
     }
   }, [volume]);
 

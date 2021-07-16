@@ -30,6 +30,8 @@ const Layout = () => {
     setIsPlaying,
     setPosition,
     setPlayingIndex,
+    loaded,
+    setLoaded,
   } = useHowlerModel();
 
   const { page, setPage } = useGlobalModel();
@@ -74,6 +76,9 @@ const Layout = () => {
     setIsPlaying(false);
   };
 
+  const handleLoaded = () => {
+    setLoaded(true);
+  };
   return (
     <div className={styles.windowContainer}>
       {songList.length > 0 && songList[listIndex].list.length ? (
@@ -83,6 +88,7 @@ const Layout = () => {
           playing={isPlaying}
           volume={volume / 100}
           onEnd={handleEnd}
+          onLoad={handleLoaded}
           ref={playerRef}
           id="howler"
         />

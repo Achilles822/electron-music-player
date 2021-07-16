@@ -13,6 +13,7 @@ function useHowler() {
   const [songList, setSongList] = useState<ISongList[]>([]);
   const [listIndex, setListIndex] = useState(0);
   const [viewListIndex, setViewListIndex] = useState(0);
+  const [loaded, setLoaded] = useState(false);
   const [wave] = useState(new Wave());
 
   useEffect(() => {
@@ -52,6 +53,8 @@ function useHowler() {
     setViewListIndex,
     viewListIndex,
     wave,
+    loaded,
+    setLoaded,
   };
 }
 export default createModel(useHowler);
