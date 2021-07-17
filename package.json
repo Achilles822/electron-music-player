@@ -1,7 +1,8 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
+  "name": "hades",
+  "productName": "Hades",
+  "version": "0.1.0",
+  "description": "A material design style music app build with Electron.",
   "scripts": {
     "build": "concurrently \"yarn build:main\" \"yarn build:renderer\"",
     "build:main": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.main.prod.babel.js",
@@ -30,8 +31,8 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "Hades",
+    "appId": "tech.ziyuyan.electron",
     "files": [
       "dist/",
       "node_modules/",
@@ -86,8 +87,8 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate"
+      "owner": "electron-music-player",
+      "repo": "electron-music-player"
     }
   },
   "repository": {
@@ -95,38 +96,29 @@
     "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
   },
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "Hades Maintainers",
+    "email": "779239635@qq.com",
+    "url": "https://yanziyu.tech"
   },
-  "contributors": [
-    {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
-    },
-    {
-      "name": "John Tran",
-      "email": "jptran318@gmail.com",
-      "url": "https://github.com/jooohhn"
-    }
-  ],
+  "contributors": [],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/Achilles822/electron-music-player/issues"
   },
   "keywords": [
     "electron",
-    "boilerplate",
     "react",
     "typescript",
     "ts",
+    "music-player",
     "sass",
     "webpack",
     "hot",
-    "reload"
+    "flac",
+    "aac",
+    "mp3"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/Achilles822/electron-music-player#readme",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {
