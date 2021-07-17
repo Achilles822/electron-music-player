@@ -22,7 +22,6 @@ import useHowlerModel from '../../models/howl';
 
 const PlayList = () => {
   const {
-    // playingList,
     setPlayingIndex,
     playingIndex,
     isPlaying,
@@ -31,18 +30,30 @@ const PlayList = () => {
     songList,
     viewListIndex,
     setListIndex,
+    setSongList,
   } = useHowlerModel();
 
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [delectIndex, setDeleteIndex] = useState(-1);
-  // songList[listIndex].list[playingIndex].src
+  const [deleteIndex, setDeleteIndex] = useState(-1);
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  };
+
   const handleDelete = (index: number): void => {
     console.log(index);
-    setDeleteIndex(index)
+    setDeleteIndex(index);
     handleModalOpen();
   };
-  const handleConfirmDelete = (): void => {};
+  const handleConfirmDelete = (): void => {
+    let newSongList = JSON.parse(JSON.stringify(songList));
+    if (playingIndex === deleteIndex) {
+      setIsPlaying(false);
+    }
+    newSongList[listIndex].list.splice(deleteIndex, 1);
+    setSongList(newSongList);
+    handleModalClose();
+  };
   const handlePause = (): void => {
     setIsPlaying(false);
   };
@@ -51,11 +62,8 @@ const PlayList = () => {
     setPlayingIndex(index);
     setIsPlaying(true);
   };
-  const handleModalOpen = () => {
-    setModalOpen(true);
-  };
 
-  const handleModalClose = () => {
+  const handleModalClose = (): void => {
     setModalOpen(false);
   };
 

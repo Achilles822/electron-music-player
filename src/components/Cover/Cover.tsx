@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useEffect } from 'react';
 // import { IPage } from '../../types/global';
-import useHowlerModel from '../../models/howl';
 import Typography from '@material-ui/core/Typography';
-import styles from './Cover.scss';
 import { usePalette } from 'react-palette';
+import useHowlerModel from '../../models/howl';
+import styles from './Cover.scss';
+
 const Cover = () => {
   const {
     wave,

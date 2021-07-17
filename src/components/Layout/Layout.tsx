@@ -79,9 +79,7 @@ const Layout = () => {
     setLoaded(true);
   };
   return (
-    <div
-      className={styles.windowContainer}
-    >
+    <div className={styles.windowContainer}>
       {songList.length > 0 && songList[listIndex].list.length ? (
         <ReactHowler
           // src="http://goldfirestudios.com/proj/howlerjs/sound.ogg"
