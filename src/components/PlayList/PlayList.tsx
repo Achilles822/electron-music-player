@@ -9,6 +9,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
@@ -21,19 +22,23 @@ const PlayList = (props: any) => {
     // playingList,
     setPlayingIndex,
     playingIndex,
+    isPlaying,
     setIsPlaying,
     listIndex,
     songList,
     viewListIndex,
     setListIndex,
   } = useHowlerModel();
-  const handleClick = (index: number) => {
+  const handleDelete = (index: number): void => {
+    console.log(index);
+  };
+  const handlePause = (): void => {
+    setIsPlaying(false);
+  };
+  const handlePlay = (index: number): void => {
     setListIndex(viewListIndex);
     setPlayingIndex(index);
     setIsPlaying(true);
-  };
-  const handleDelete = (index: number) => {
-    console.log(index);
   };
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -48,14 +53,22 @@ const PlayList = (props: any) => {
                   secondaryAction={
                     <div>
                       {' '}
-                      <IconButton
-                        edge="end"
-                        onClick={() => {
-                          handleClick(index);
-                        }}
-                      >
-                        {' '}
-                        <PlayArrowIcon />
+                      <IconButton edge="end">
+                        {viewListIndex === listIndex &&
+                        playingIndex === index &&
+                        isPlaying ? (
+                          <PauseIcon
+                            onClick={() => {
+                              handlePause();
+                            }}
+                          />
+                        ) : (
+                          <PlayArrowIcon
+                            onClick={() => {
+                              handlePlay(index);
+                            }}
+                          />
+                        )}
                       </IconButton>
                       <IconButton
                         edge="end"
