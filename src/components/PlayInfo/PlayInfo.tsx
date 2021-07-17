@@ -1,6 +1,6 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
+// import IconButton from '@material-ui/core/IconButton';
 // import { Row, Item } from '@mui-treasury/components/flex';
 // import { Info, InfoTitle, InfoSubtitle } from '@mui-treasury/components/info';
 // import { useTutorInfoStyles } from '@mui-treasury/styles/info/tutor';
@@ -9,7 +9,7 @@ import { IPage } from '../../types/global';
 import useHowlerModel from '../../models/howl';
 import useGlobalModel from '../../models/global';
 
-const PlayInfo = (props: any) => {
+const PlayInfo = () => {
   const { songList, playingIndex, isPlaying, listIndex } = useHowlerModel();
   const { page, setPage } = useGlobalModel();
 

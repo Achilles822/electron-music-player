@@ -1,11 +1,9 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
-import Icon from '../Icon/Icon';
 import useHowlerModel from '../../models/howl';
 import styles from './PlayControl.scss';
 
@@ -19,7 +17,6 @@ const PlayControl = (props: any) => {
     setPlayingIndex,
   } = useHowlerModel();
 
-  // const len = songList[listIndex].list.length;
   const handlePlay = () => {
     setIsPlaying(!isPlaying);
   };
@@ -48,11 +45,6 @@ const PlayControl = (props: any) => {
       <IconButton aria-label="next" onClick={handleNext}>
         <SkipNextIcon />
       </IconButton>
-      {/* <Icon
-        className={styles.icon}
-        icon="#icon-ArrowPrevious"
-        onClick={handlePrevious}
-      /> */}
     </div>
   );
 };

@@ -30,11 +30,10 @@ const Layout = () => {
     setIsPlaying,
     setPosition,
     setPlayingIndex,
-    loaded,
     setLoaded,
   } = useHowlerModel();
 
-  const { page, setPage } = useGlobalModel();
+  const { page } = useGlobalModel();
 
   const [title, setTitle] = useState('');
 
@@ -80,7 +79,9 @@ const Layout = () => {
     setLoaded(true);
   };
   return (
-    <div className={styles.windowContainer}>
+    <div
+      className={styles.windowContainer}
+    >
       {songList.length > 0 && songList[listIndex].list.length ? (
         <ReactHowler
           // src="http://goldfirestudios.com/proj/howlerjs/sound.ogg"
@@ -107,7 +108,7 @@ const Layout = () => {
         </Slide>
       )}
 
-      <div className={styles.bottom}>
+      <div>
         <BottomBar />
       </div>
       <Dialog open={open} onClose={handleClose} fullWidth={false} maxWidth="sm">

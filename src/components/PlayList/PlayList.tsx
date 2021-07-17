@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemButton from '@material-ui/core/ListItemButton';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,12 +10,17 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import Button from '@material-ui/core/Button';
 
 import styles from './PlayList.scss';
 
 import useHowlerModel from '../../models/howl';
 
-const PlayList = (props: any) => {
+const PlayList = () => {
   const {
     // playingList,
     setPlayingIndex,
@@ -29,9 +32,17 @@ const PlayList = (props: any) => {
     viewListIndex,
     setListIndex,
   } = useHowlerModel();
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const [delectIndex, setDeleteIndex] = useState(-1);
+  // songList[listIndex].list[playingIndex].src
   const handleDelete = (index: number): void => {
     console.log(index);
+    setDeleteIndex(index)
+    handleModalOpen();
   };
+  const handleConfirmDelete = (): void => {};
   const handlePause = (): void => {
     setIsPlaying(false);
   };
@@ -40,8 +51,34 @@ const PlayList = (props: any) => {
     setPlayingIndex(index);
     setIsPlaying(true);
   };
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+      <Dialog
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            是否从歌单删除此歌曲？
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleModalClose}>取消</Button>
+          <Button onClick={handleConfirmDelete} autoFocus>
+            确认
+          </Button>
+        </DialogActions>
+      </Dialog>
       <List>
         {songList.length > 0 && songList[viewListIndex].list.length > 0
           ? songList[viewListIndex].list.map((song: any, index: number) => {
@@ -82,10 +119,7 @@ const PlayList = (props: any) => {
                   }
                 >
                   <ListItemAvatar>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src={song.coverBase64 ? song.coverBase64 : null}
-                    />
+                    <Avatar src={song.coverBase64 ? song.coverBase64 : null} />
                   </ListItemAvatar>
                   <ListItemText
                     primary={song.common.title}

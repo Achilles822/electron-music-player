@@ -21,7 +21,7 @@ const TimeIndicator = () => {
   function formatDuration(value: number) {
     const minute = Math.floor(value / 60);
     // eslint-disable-next-line radix
-    const secondLeft = parseInt(value - minute * 60);
+    const secondLeft = parseInt(Number(value - minute * 60).toFixed(0));
     return `${minute}:${secondLeft < 9 ? `0${secondLeft}` : secondLeft}`;
   }
   useEffect(() => {
