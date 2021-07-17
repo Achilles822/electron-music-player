@@ -32,12 +32,12 @@ if (process.env.NODE_ENV === 'production') {
   sourceMapSupport.install();
 }
 
-if (
-  process.env.NODE_ENV === 'development' ||
-  process.env.DEBUG_PROD === 'true'
-) {
-  require('electron-debug')();
-}
+// if (
+//   process.env.NODE_ENV === 'development' ||
+//   process.env.DEBUG_PROD === 'true'
+// ) {
+require('electron-debug')();
+// }
 
 const store = new Store();
 console.log(store);
@@ -56,12 +56,12 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
-  if (
-    process.env.NODE_ENV === 'development' ||
-    process.env.DEBUG_PROD === 'true'
-  ) {
-    await installExtensions();
-  }
+  // if (
+  //   process.env.NODE_ENV === 'development' ||
+  //   process.env.DEBUG_PROD === 'true'
+  // ) {
+  await installExtensions();
+  // }
 
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
@@ -83,6 +83,8 @@ const createWindow = async () => {
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
+
+  mainWindow.webContents.openDevTools();
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event

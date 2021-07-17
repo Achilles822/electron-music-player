@@ -23,7 +23,12 @@ function useHowler() {
 
   useEffect(() => {
     const storeList = store.get('songList') as ISongList[];
-    if (songList.length === 0 && storeList.length === 0) {
+    if (
+      songList &&
+      storeList &&
+      songList.length === 0 &&
+      storeList.length === 0
+    ) {
       setSongList((old) => [...old, { title: '默认列表', list: [] }]);
       setListIndex(0);
     }
